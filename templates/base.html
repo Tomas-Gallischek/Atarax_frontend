@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Atarax DM Frontend{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styly.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="fantasy-header">
+        <nav class="fantasy-nav-container">
+            <!-- Rozbalovací fantasy menu pro přechod mezi sekcemi aplikace (vlevo) -->
+            <div class="fantasy-menu-wrapper" id="fantasyNavMenu">
+                <button type="button" class="fantasy-menu-btn" id="fantasyMenuToggle" aria-expanded="false" aria-haspopup="true" aria-label="Otevřít navigaci modulů">
+                    <span class="fantasy-menu-icon">📜</span>
+                    <span class="fantasy-menu-text">Menu modulů</span>
+                    <span class="fantasy-menu-chevron">▼</span>
+                </button>
+
+                <ul class="fantasy-dropdown" id="fantasyDropdown" role="menu">
+                    <li class="fantasy-menu-item" role="none">
+                        <a href="" class="fantasy-menu-link" role="menuitem">
+                            <span class="fantasy-menu-item-icon">🏰</span>
+                            <span class="fantasy-menu-item-text">Hlavní přehled</span>
+                        </a>
+                    </li>
+                    <li class="fantasy-menu-divider" role="separator"></li>
+                    <li class="fantasy-menu-item" role="none">
+                        <a href="" class="fantasy-menu-link" role="menuitem">
+                            <span class="fantasy-menu-item-icon">🗺️</span>
+                            <span class="fantasy-menu-item-text">Mapy</span>
+                        </a>
+                    </li>
+                    <li class="fantasy-menu-item" role="none">
+                        <a href="" class="fantasy-menu-link" role="menuitem">
+                            <span class="fantasy-menu-item-icon">👤</span>
+                            <span class="fantasy-menu-item-text">NPC</span>
+                        </a>
+                    </li>
+                    <li class="fantasy-menu-item" role="none">
+                        <a href="" class="fantasy-menu-link" role="menuitem">
+                            <span class="fantasy-menu-item-icon">📜</span>
+                            <span class="fantasy-menu-item-text">Deníky hrdinů</span>
+                        </a>
+                    </li>
+                    <li class="fantasy-menu-item" role="none">
+                        <a href="" class="fantasy-menu-link" role="menuitem">
+                            <span class="fantasy-menu-item-icon">⚔️</span>
+                            <span class="fantasy-menu-item-text">Glem</span>
+                        </a>
+                    </li>
+                    <li class="fantasy-menu-item" role="none">
+                        <a href="" class="fantasy-menu-link" role="menuitem">
+                            <span class="fantasy-menu-item-icon">🖋️</span>
+                            <span class="fantasy-menu-item-text">Poznámky</span>
+                        </a>
+                    </li>
+                    <li class="fantasy-menu-item" role="none">
+                        <a href="" class="fantasy-menu-link" role="menuitem">
+                            <span class="fantasy-menu-item-icon">📖</span>
+                            <span class="fantasy-menu-item-text">Kronika</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Brand / Logo (vpravo) -->
+            <a href="{% url 'app_dm_frontend:index' %}" class="fantasy-brand" title="Návrat na hlavní přehled">
+                <div class="fantasy-brand-text">
+                    <span class="fantasy-brand-title">Atarax</span>
+                    <span class="fantasy-brand-subtitle">Dungeon Master</span>
+                </div>
+                <div class="fantasy-brand-emblem">⚔</div>
+            </a>
+        </nav>
+        {% block header %}{% endblock %}
+    </header>
+
+    <main class="fantasy-main">
+        <div class="fantasy-panel">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="fantasy-footer">
+        <div class="fantasy-footer-content">
+            <span class="fantasy-footer-brand">ATARAX DM SYSTEM</span>
+            <span class="fantasy-footer-sub">Kronika a nástroje Pána jeskyně</span>
+        </div>
+        {% block footer %}{% endblock %}
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuWrapper = document.getElementById('fantasyNavMenu');
+            const menuToggle = document.getElementById('fantasyMenuToggle');
+
+            if (menuWrapper && menuToggle) {
+                // Přepínání otevření / zavření menu kliknutím
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const isOpen = menuWrapper.classList.toggle('is-open');
+                    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
+
+                // Zavření kliknutím mimo menu
+                document.addEventListener('click', function(e) {
+                    if (!menuWrapper.contains(e.target)) {
+                        menuWrapper.classList.remove('is-open');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                // Zavření klávesou Escape
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && menuWrapper.classList.contains('is-open')) {
+                        menuWrapper.classList.remove('is-open');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                        menuToggle.focus();
+                    }
+                });
+            }
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
