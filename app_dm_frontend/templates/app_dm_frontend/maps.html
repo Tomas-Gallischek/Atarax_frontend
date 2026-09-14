@@ -9,4 +9,35 @@
 
 {% block content %}
     <h1>Atlas světa a lokací</h1>
+
+    <h2>Continenty: </h2>
+    {% for continent in continents %}
+        {{ continent.name }}
+    {% endfor %}
+    
+    <h2>Království:</h2>
+    {% for kingdom in kingdoms %}
+        {{ kingdom.name }}
+    {% endfor %}
+    
+    <h2>Regiony:</h2>
+    {% for region in regions %}
+        {{ region.name }}
+    {% endfor %}
+    
+    <h2>Města:</h2>
+    {% for city in cities %}
+        {{ city.name }}
+    {% endfor %}
+    
+    <h2>Dungeony:</h2>
+    {% for dungeon in dungeons %}
+        {{ dungeon.name }}
+    {% endfor %}
+    
+    <h2>Unikátní lokace:</h2>
+    {% for unique_location in unique_locations %}
+        {{ unique_location.name }}
+    {% endfor %}
+
 {% endblock %}
