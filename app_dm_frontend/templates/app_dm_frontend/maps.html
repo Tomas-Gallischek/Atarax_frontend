@@ -12,7 +12,7 @@
 
     <h2>Continenty: </h2>
     {% for continent in continents %}
-        {{ continent.name }}
+        <a href="{% url 'app_dm_frontend:maps_detail' continent.name %}" class="map-item">{{ continent.name }}</a>
     {% endfor %}
     
     <h2>Království:</h2>

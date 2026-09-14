@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ item.name }}{% endblock %}
+
+{% block content %}
+
+    <h1>Detail mapy: {{ item.name }}</h1>
+    <h2>Popis: {{ item.description }}</h2>
+
+
+{% endblock %}
