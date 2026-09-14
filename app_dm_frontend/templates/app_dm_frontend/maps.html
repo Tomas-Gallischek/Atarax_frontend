@@ -8,36 +8,79 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Atlas světa a lokací</h1>
+<h1>Atlas světa a lokací</h1>
 
-    <h2>Continenty: </h2>
-    {% for continent in continents %}
-        <a href="{% url 'app_dm_frontend:maps_detail' continent.name %}" class="map-item">{{ continent.name }}</a>
-    {% endfor %}
-    
-    <h2>Království:</h2>
-    {% for kingdom in kingdoms %}
-        {{ kingdom.name }}
-    {% endfor %}
-    
-    <h2>Regiony:</h2>
-    {% for region in regions %}
-        {{ region.name }}
-    {% endfor %}
-    
-    <h2>Města:</h2>
-    {% for city in cities %}
-        {{ city.name }}
-    {% endfor %}
-    
-    <h2>Dungeony:</h2>
-    {% for dungeon in dungeons %}
-        {{ dungeon.name }}
-    {% endfor %}
-    
-    <h2>Unikátní lokace:</h2>
-    {% for unique_location in unique_locations %}
-        {{ unique_location.name }}
-    {% endfor %}
+<div class="locations-container">
 
+    <div class="locations-category">
+        <h2 class="locations-category-title">Kontinenty</h2>
+        <div class="locations-list">
+            {% for item in continents %}
+                <a href="{% url 'app_dm_frontend:maps_detail' item.name %}" class="location-card">
+                    <span class="location-name">{{ item.name }}</span>
+                    {% if item.description %}<span class="location-description">{{ item.description }}</span>{% endif %}
+                </a>
+            {% empty %}
+                <p class="location-empty">Žádné kontinenty</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="locations-category">
+        <h2 class="locations-category-title">Království</h2>
+        <div class="locations-list">
+            {% for item in kingdoms %}
+                <a href="{% url 'app_dm_frontend:maps_detail' item.name %}" class="location-card">
+                    <span class="location-name">{{ item.name }}</span>
+                    {% if item.description %}<span class="location-description">{{ item.description }}</span>{% endif %}
+                </a>
+            {% empty %}
+                <p class="location-empty">Žádná království</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="locations-category">
+        <h2 class="locations-category-title">Regiony</h2>
+        <div class="locations-list">
+            {% for item in regions %}
+                <a href="{% url 'app_dm_frontend:maps_detail' item.name %}" class="location-card">
+                    <span class="location-name">{{ item.name }}</span>
+                    {% if item.description %}<span class="location-description">{{ item.description }}</span>{% endif %}
+                </a>
+            {% empty %}
+                <p class="location-empty">Žádné regiony</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="locations-category">
+        <h2 class="locations-category-title">Města</h2>
+        <div class="locations-list">
+            {% for item in cities %}
+                <a href="{% url 'app_dm_frontend:maps_detail' item.name %}" class="location-card">
+                    <span class="location-name">{{ item.name }}</span>
+                    {% if item.description %}<span class="location-description">{{ item.description }}</span>{% endif %}
+                </a>
+            {% empty %}
+                <p class="location-empty">Žádná města</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="locations-category">
+        <h2 class="locations-category-title">Specifické lokace</h2>
+        <div class="locations-list">
+            {% for item in specific_locations %}
+                <a href="{% url 'app_dm_frontend:maps_detail' item.name %}" class="location-card">
+                    <span class="location-name">{{ item.name }}</span>
+                    {% if item.description %}<span class="location-description">{{ item.description }}</span>{% endif %}
+                </a>
+            {% empty %}
+                <p class="location-empty">Žádné specifické lokace</p>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
 {% endblock %}

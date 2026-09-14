@@ -35,18 +35,21 @@ def maps(request):
             print(f"MAPY: {API_DATA_OK}")
 
             data = api_response.json()
-            
+            print(f"DATA Z BACKENDU: {data}")
+
+            locations = data.get('locations', [])
+
             context = {
-                'continents': data.get('continents', []),
-                'kingdoms': data.get('kingdoms', []),
-                'regions': data.get('regions', []),
-                'cities': data.get('cities', []),
-                'dungeons': data.get('dungeons', []),
-                'unique_locations': data.get('unique_locations', [])
+                'locations': locations,
+                'continents': [loc for loc in locations if loc.get('type') == 'kontinent'],
+                'kingdoms': [loc for loc in locations if loc.get('type') == 'království'],
+                'regions': [loc for loc in locations if loc.get('type') == 'region'],
+                'cities': [loc for loc in locations if loc.get('type') == 'město'],
+                'specific_locations': [loc for loc in locations if loc.get('type') == 'specifická lokace'],
             }
-            
+
             return render(request, 'app_dm_frontend/maps.html', context)
-            
+
         else:
             return HttpResponse(f"Backend vrátil chybu: {api_response.status_code}")
 
@@ -59,20 +62,21 @@ def maps_detail(request, name):
 # PTÁM SE TORCHU NEEFEKTIVNĚ NA VŠECHNY MAPY V DATABÁZI ALE SERVER JE DOST RYCHLÝ ABY TO ZVLÁDL
 
     try:
-        api_response = requests.get(BACKEND_URL + "/maps")
-        print(f"MAPY: {API_CON_OK}")
+        api_response = requests.get(BACKEND_URL + f"/maps_detail/{name}")
+        print(f"MAPY_DETAIL: {API_CON_OK}")
         
         if api_response.status_code == 200:
-            print(f"MAPY: {API_DATA_OK}")
+            print(f"MAPY_DETAL: {API_DATA_OK}")
 
-            data = api_response.json()
-            
-            for item in data.get('kingdoms', []) + data.get('continents', []) + data.get('regions', []) + data.get('cities', []) + data.get('dungeons', []) + data.get('unique_locations', []):
-                if item.get('name') == name:
-                    return render(request, 'app_dm_frontend/maps_detail.html', {'item': item})
+            map_data = api_response.json()
+            print(f"DATA Z BACKENDU: {map_data}")
 
-            return HttpResponse(f"Mapa '{name}' nebyla nalezena ve všech kategoriích.")
-            
+            context = {
+                'map_data': map_data,
+            }
+
+            return render(request, 'app_dm_frontend/maps_detail.html', context)
+
         else:
             return HttpResponse(f"Backend vrátil chybu: {api_response.status_code}")
 

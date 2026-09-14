@@ -1,12 +1,33 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ item.name }}{% endblock %}
+{% block title %}{{ map_data.name }}{% endblock %}
 
 {% block content %}
 
-    <h1>Detail mapy: {{ item.name }}</h1>
-    <h2>Popis: {{ item.description }}</h2>
+    <h1>Detail mapy: {{ map_data.name }}</h1>
+    {% if map_data.type %}
+        <p><strong>Typ:</strong> {{ map_data.type }}</p>
+    {% endif %}
+    {% if map_data.description %}
+        <h2>Popis:</h2>
+        <p>{{ map_data.description }}</p>
+    {% endif %}
 
+    {% if map_data.continent %}
+        <p><strong>Kontinent:</strong> {{ map_data.continent }}</p>
+    {% endif %}
+    {% if map_data.kingdom %}
+        <p><strong>Království:</strong> {{ map_data.kingdom }}</p>
+    {% endif %}
+    {% if map_data.region %}
+        <p><strong>Region:</strong> {{ map_data.region }}</p>
+    {% endif %}
+    {% if map_data.city %}
+        <p><strong>Město:</strong> {{ map_data.city }}</p>
+    {% endif %}
+    {% if map_data.specific_location %}
+        <p><strong>Specifická lokace:</strong> {{ map_data.specific_location }}</p>
+    {% endif %}
 
 {% endblock %}
