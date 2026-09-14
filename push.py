@@ -56,6 +56,7 @@ def main():
     print("✅ Hotovo! Kód byl úspěšně nahrán na GitHub.")
     print("=" * 50)
 
+    run_command("cls")
 
 if __name__ == "__main__":
     main()
