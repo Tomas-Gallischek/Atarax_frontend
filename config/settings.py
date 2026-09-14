@@ -1,13 +1,9 @@
 from pathlib import Path
-import os
-from dotenv import load_dotenv
 
 
-load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-BACKEND_API_URL = os.getenv('BACKEND_API_URL', 'http://192.168.0.95:8008/api/')
+BACKEND_API_URL = 'http://192.168.0.95:8008' 
 
 SECRET_KEY = 'django-insecure--sp^x$1*3ze-5n1%clh5$r1cnfug+29bii&-6a%8aos_cxpa%p'
 
@@ -108,6 +104,3 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-
-# Backend REST API URL
-BACKEND_API_URL = 'http://192.168.0.95:8008/api/'

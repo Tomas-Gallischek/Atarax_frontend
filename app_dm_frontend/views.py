@@ -1,20 +1,31 @@
 from django.shortcuts import render
 import requests
 from django.http import HttpResponse
+from django.conf import settings
+
+BACKEND_URL = settings.BACKEND_API_URL
 
 def index(request):
-    backend_url = 'http://127.0.0.1:8000/api/ziskej-data/' 
-
+    print(f'spuštění backendu API at {BACKEND_URL}')
+    
     try:
-        odpoved = requests.get(backend_url)
+        api_response = requests.get(BACKEND_URL)
+        print('spuštěnbí TRY metody')
         
-        if odpoved.status_code == 200:
-            data = odpoved.json() 
-            data_list = data.get("data", [])
+        if api_response.status_code == 200:
+            print('spuštění if metody')
 
-            return HttpResponse(f"Úspěšně přijato z backendu: {data_list}")
+            context = {
+                'nazev': 'Nákupní seznam',
+            }
+            return render(request, 'index.html', context)
+
+
+
+
+            
         else:
-            return HttpResponse(f"Backend vrátil chybu: {odpoved.status_code}")
+            return HttpResponse(f"Backend vrátil chybu: {api_response.status_code}")
 
     except requests.exceptions.ConnectionError:
         return HttpResponse("Nepodařilo se připojit k backendu. Běží atarax_backend?")
